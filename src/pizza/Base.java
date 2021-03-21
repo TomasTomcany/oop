@@ -2,8 +2,8 @@ package pizza;
 import bases.*;
 
 public class Base {
-    public static double price = 0;
-    public static String name = "";
+    public double price = 0;
+    public String name = "";
 
     public void set_price(){
         if (Pizza.size == 40){
