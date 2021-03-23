@@ -3,7 +3,8 @@ package Toppings;
 import pizza.Topping;
 
 public class Jalapenos extends Topping{
-    public Jalapenos(){
+    public Jalapenos(int a){
+        super(a);
         price = 0.75;
         name = "Jalapenos";
     }

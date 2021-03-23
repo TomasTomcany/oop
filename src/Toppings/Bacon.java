@@ -3,7 +3,8 @@ package Toppings;
 import pizza.Topping;
 
 public class Bacon extends Topping{
-    public Bacon(){
+    public Bacon(int a){
+        super(a);
         price = 0.8;
         name = "Bacon";
     }

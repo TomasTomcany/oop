@@ -1,11 +1,19 @@
 package pizza;
 
-public class Crust {
-    public double price = 0;
-    public String name= "Normal";
+public class Crust implements PizzaParts{
+    public double price;
+    public String name;
+    private int size;
+
+    // defaul constructor, case crust is normal
+    public Crust (int a){
+        price = 0;
+        name = "Normal";
+        size = a;
+    }
 
     public void set_price(){
-        if (Pizza.size == 40) {
+        if (this.size == 40) {
             price += 0.4;
         }
     }

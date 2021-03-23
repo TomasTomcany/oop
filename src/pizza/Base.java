@@ -1,12 +1,16 @@
 package pizza;
 import bases.*;
 
-public class Base {
-    public double price = 0;
-    public String name = "";
+public class Base implements PizzaParts{
+    public double price;
+    public String name;
+    private int size;
 
+    public Base(int a){
+        size = a;
+    }
     public void set_price(){
-        if (Pizza.size == 40){
+        if (this.size == 40){
             price *= 1.5;
         }
     }
