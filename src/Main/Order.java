@@ -109,7 +109,6 @@ public class Order {
             i++;
             System.out.println();
         }
-        System.out.println();
-        System.out.println("Price order: " + sum);
+        System.out.println("Price of order: " + sum);
     }
 }
