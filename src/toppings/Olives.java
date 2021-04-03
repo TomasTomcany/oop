@@ -1,4 +1,4 @@
-package Toppings;
+package toppings;
 
 import pizza.Topping;
 

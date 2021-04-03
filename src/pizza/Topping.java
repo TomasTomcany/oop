@@ -1,9 +1,9 @@
 package pizza;
 
-public class Topping implements PizzaParts{
+public abstract class Topping implements PizzaParts{
     public double price;
     public String name;
-    private int size;
+    private final int size;
 
     public Topping(int a){
         size = a;
@@ -11,9 +11,9 @@ public class Topping implements PizzaParts{
 
     public void set_price(){
         if (this.size == 40) {
-            price *= 1.35;
+            this.price *= 1.35;
         }
     }
-    public double get_price(){return price;}
+    public double get_price(){return Math.round(this.price * 100.0) / 100.0;}
     public String get_name(){return name;}
 }

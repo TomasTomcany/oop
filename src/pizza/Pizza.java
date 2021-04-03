@@ -10,29 +10,33 @@ public class Pizza {
     public ArrayList<Topping> toppings;
 
     // constuctor
-    public Pizza(int a){
+    public Pizza(int a, Base b, Crust c, ArrayList<Topping> t){
         size = a;
         price = 0;
-        base = new Base(a);
-        crust = new Crust(a);
-        toppings = new ArrayList<>(a);
+        this.base = b;
+        this.crust = c;
+        this.toppings = t;
+        // setting price based of its composition
+        this.price += base.get_price()+crust.get_price();
+        for (Topping item: toppings){
+            this.price += item.get_price();
+        }
     }
 
-    public void add_price(double price){
-        this.price += price;
-    }
 
-    public double get_price(){return this.price;}
+    public double get_price(){return Math.round(this.price * 100.0) / 100.0;}
 
     public int get_size(){return size;}
 
-    public void print_pizza(){
-        System.out.println("Size: " + get_size());
-        System.out.println("Base: " + base.get_name() +" " + base.get_price());
-        System.out.println("Crust: " + crust.get_name() +" " + crust.get_price());
+    public String info(){
+        StringBuilder info;
+        info = new StringBuilder("Size: " + get_size() + "€\n" +
+                "Base: " + base.get_name() + " " + base.get_price() + "€\n" +
+                "Crust: " + crust.get_name() + " " + crust.get_price() + "€\n");
         for (Topping item: toppings){
-            System.out.println("Topping: " + item.get_name() +" " + item.get_price());
+            info.append("Topping: ").append(item.get_name()).append(" ").append(item.get_price()).append("€\n");
         }
-        System.out.println("Price of pizza: " + get_price());
+        info.append("Price of pizza: ").append(get_price()).append("€\n");
+        return info.toString();
     }
 }
