@@ -1,4 +1,4 @@
-package pizza;
+package order;
 
 import java.util.ArrayList;
 
@@ -30,13 +30,13 @@ public class Pizza {
 
     public String info(){
         StringBuilder info;
-        info = new StringBuilder("Size: " + get_size() + "€\n" +
+        info = new StringBuilder("Size: " + get_size() + "cm\n" +
                 "Base: " + base.get_name() + " " + base.get_price() + "€\n" +
                 "Crust: " + crust.get_name() + " " + crust.get_price() + "€\n");
         for (Topping item: toppings){
             info.append("Topping: ").append(item.get_name()).append(" ").append(item.get_price()).append("€\n");
         }
-        info.append("Price of pizza: ").append(get_price()).append("€\n");
+        info.append("Price of pizza: ").append(get_price()).append("€\n\n");
         return info.toString();
     }
 }

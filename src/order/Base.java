@@ -1,5 +1,4 @@
-package pizza;
-import bases.*;
+package order;
 
 public class Base implements PizzaParts{
     public double price;

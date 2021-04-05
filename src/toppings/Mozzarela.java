@@ -1,6 +1,6 @@
 package toppings;
 
-import pizza.Topping;
+import order.Topping;
 
 public class Mozzarela extends Topping{
     public Mozzarela(int a){

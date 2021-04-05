@@ -1,6 +1,6 @@
 package bases;
 
-import pizza.Base;
+import order.Base;
 
 public class Tomato  extends Base {
     public Tomato(int a) {

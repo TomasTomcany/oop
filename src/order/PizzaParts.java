@@ -1,4 +1,4 @@
-package pizza;
+package order;
 
 public interface PizzaParts {
 

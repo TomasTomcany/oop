@@ -2,16 +2,14 @@ package gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 import toppings.*;
 import crusts.*;
 import bases.*;
-import pizza.*;
+import order.*;
 
 import java.util.ArrayList;
 
@@ -89,7 +87,10 @@ public class Order_controller {
     @FXML
     private Button finish_order;
 
-    public final ArrayList<Pizza> order = new ArrayList<>();
+
+    public final ArrayList<Pizza> pizzas = new ArrayList<>();
+    public Order order;
+
 
     void reset_buttons(){
         size_32.setSelected(false);
@@ -117,19 +118,22 @@ public class Order_controller {
         // handling size
         int size;
         if (size_32.isSelected()){size = 32;}
-        else {size = 40;}
+        else if (size_40.isSelected()){size = 40;}
+        else {text_summary.appendText("Please select size!\n"); return;}
 
         // handling base
-        Base base = new Tomato(size);
+        Base base;
         if (base_tomato.isSelected()){base = new Tomato(size);}
-        if (base_cream.isSelected()){base = new Cream(size);}
-        if (base_habanero.isSelected()) {base = new Habanero(size);}
+        else if (base_cream.isSelected()){base = new Cream(size);}
+        else if (base_habanero.isSelected()) {base = new Habanero(size);}
+        else {text_summary.appendText("Please select base!\n"); return;}
 
         // handling crust
-        Crust crust = new Crust(size);
+        Crust crust;
         if (crust_normal.isSelected()){crust = new Crust(size);}
-        if (crust_cheese.isSelected()){crust = new Cheese(size);}
-        if (crust_garlic.isSelected()){crust = new Garlic(size);}
+        else if (crust_cheese.isSelected()){crust = new Cheese(size);}
+        else if (crust_garlic.isSelected()){crust = new Garlic(size);}
+        else {text_summary.appendText("Please select crust!\n"); return;}
 
         // handling toppings
         ArrayList<Topping> toppings = new ArrayList<>(size);
@@ -152,16 +156,21 @@ public class Order_controller {
         base.set_price();
         crust.set_price();
         Pizza pizza = new Pizza(size, base, crust, toppings);
-        order.add(pizza);
+        pizzas.add(pizza);
 
         text_summary.appendText(pizza.info());
         reset_buttons();                                    // resetting buttons
     }
     @FXML
     void finish_order(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+        order = new Order("Pizzaaaa", pizzas, true);
+        order.do_order();
+        text_summary.appendText(order.final_time());
+        text_summary.appendText(order.final_price());
+
+//        Node source = (Node) event.getSource();
+//        Stage stage = (Stage) source.getScene().getWindow();
+//        stage.close();
     }
 
 

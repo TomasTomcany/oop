@@ -1,17 +1,20 @@
-package pizza;
+package order;
 
-public abstract class Topping implements PizzaParts{
+public class Crust implements PizzaParts{
     public double price;
     public String name;
-    private final int size;
+    private int size;
 
-    public Topping(int a){
+    // default constructor, in case crust is normal
+    public Crust (int a){
+        price = 0;
+        name = "Normal";
         size = a;
     }
 
     public void set_price(){
         if (this.size == 40) {
-            this.price *= 1.35;
+            this.price += 0.4;
         }
     }
     public double get_price(){return Math.round(this.price * 100.0) / 100.0;}

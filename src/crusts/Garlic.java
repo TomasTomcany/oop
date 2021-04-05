@@ -1,6 +1,6 @@
 package crusts;
 
-import pizza.Crust;
+import order.Crust;
 
 public class Garlic extends Crust{
     public Garlic(int a){
