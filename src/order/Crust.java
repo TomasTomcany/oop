@@ -2,7 +2,7 @@ package order;
 
 public class Crust implements PizzaParts{
     private double price;
-private String name;
+    private String name;
     private final int size;
 
     // default constructor, in case crust is normal

@@ -88,9 +88,9 @@ public class Order_controller {
     @FXML
     private Button finish_order;
 
+    public Order order;                                         // model
+    public final ArrayList<Pizza> pizzas = new ArrayList<>();   // ArrayList of pizzas is aggregated to order
 
-    public final ArrayList<Pizza> pizzas = new ArrayList<>();
-    public Order order;
 
 
     void reset_buttons(){

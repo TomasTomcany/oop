@@ -19,7 +19,7 @@ public abstract class Topping implements PizzaParts{
         this.name = name;
     }
 
-    public void chnage_Price(double price) {
+    public void change_Price(double price) {
         this.price = price;
     }
 
