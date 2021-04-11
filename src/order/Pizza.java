@@ -3,11 +3,11 @@ package order;
 import java.util.ArrayList;
 
 public class Pizza {
-    public int size;
+    private final int size;
     private double price;
-    public Base base;
-    public Crust crust;
-    public ArrayList<Topping> toppings;
+    private final Base base;
+    private final Crust crust;
+    private final ArrayList<Topping> toppings;
 
     // constuctor
     public Pizza(int a, Base b, Crust c, ArrayList<Topping> t){
@@ -28,6 +28,7 @@ public class Pizza {
 
     public int get_size(){return size;}
 
+    // prints all info of pizza into text area in GUI
     public String info(){
         StringBuilder info;
         info = new StringBuilder("Size: " + get_size() + "cm\n" +

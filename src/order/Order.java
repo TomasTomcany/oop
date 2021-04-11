@@ -13,16 +13,19 @@ import delivery.Scooter;
 import delivery.Vehicle;
 
 public class Order {
-    public final ArrayList<Pizza> pizzas;
-    public int time;
-    String order_name;
-    boolean is_done;
-    Chef chef;
-    Vehicle vehicle;
-    public double price;
-    boolean delivery;
+
+
+    private final ArrayList<Pizza> pizzas;
+    private int time;
+
+    private final String order_name;
+    private boolean is_done;
+    private Chef chef ;
+    private double price;
+    private final boolean delivery;
     private final String[] traffic = {"Jam", "Free", "Normal"};
 
+    // constructor
     public Order(String a, ArrayList<Pizza> order, boolean b) {
         this.order_name = a;
         this.pizzas = order;
@@ -40,6 +43,18 @@ public class Order {
     public double get_price(){
         return this.price;
     }
+
+    public void add_time(int t) {this.time += t;}
+
+    public ArrayList<Pizza> getPizzas() {
+        return pizzas;
+    }
+
+    public String getOrder_name() {
+        return order_name;
+    }
+
+
 
 
     // creating string for printing price of the order in text area
@@ -66,8 +81,6 @@ public class Order {
     public void do_order(){
 
         // handling cooking
-
-
         Random rand = new Random();                         // randomly choosing chef for the order
         int random = rand.nextInt(3);
         if (random == 0){
@@ -91,6 +104,7 @@ public class Order {
             random = rand.nextInt(3);
             int traffic_choice = rand.nextInt(3);
 
+            Vehicle vehicle;
             if (random == 0){
                 vehicle = new Car(traffic[traffic_choice]);
             }
@@ -101,7 +115,7 @@ public class Order {
                 vehicle = new Bicycle(traffic[traffic_choice]);
             }
 
-            this.time += vehicle.deliver();     // adds time it takes to deliver
+            this.time += vehicle.deliver();                 // adds time it takes to deliver
             this.price += 0.5;                              // adds to price for delivering
         }
 

@@ -7,21 +7,21 @@ public class Professional_chef extends Chef{
 
     public Professional_chef(){
         super();
-        this.cook_time_prepare = 4;
-        this.name = "Mario";
+        setCook_time_prepare(4);
+        setName("Mario");
     }
 
     public void make_pizza(Order order){
         int time = 0;
 
         // calculating time it takes to prepare pizzas
-        for (Pizza item: order.pizzas){
-            time += this.cook_time_prepare;
+        for (Pizza item: order.getPizzas()){
+            time += getCook_time_prepare();
         }
 
         // calculating time it takes to cook pizzas
-        time += (int)Math.ceil((double) order.pizzas.size() / (double) this.oven_limit);
+        time += (int)Math.ceil((double) order.getPizzas().size() / (double) getOven_limit());
 
-        order.time += time;
+        order.add_time(time);
     }
 }

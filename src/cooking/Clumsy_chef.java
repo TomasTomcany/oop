@@ -8,8 +8,8 @@ public class Clumsy_chef extends Chef{
 
     public Clumsy_chef(){
         super();
-        this.cook_time_prepare = 6;
-        this.name = "Luigi";
+        setCook_time_prepare(6);
+        setName("Luigi");
     }
 
     public void make_pizza(Order order){
@@ -17,17 +17,17 @@ public class Clumsy_chef extends Chef{
         Random rand = new Random();
 
         // calculating time it takes to prepare pizzas
-        for (int i = 0; i < order.pizzas.size(); i++){
+        for (int i = 0; i < order.getPizzas().size(); i++){
             int random = rand.nextInt(4);
             // there is 25% chance that he messes up current pizza and has to prepare another one
             if (random == 3){i--;}
 
-            time += this.cook_time_prepare;
+            time += getCook_time_prepare();
         }
 
-        // calculating time it takes to cook pizzas
-        time += (int)Math.ceil((double) order.pizzas.size() / (double) this.oven_limit);
+        // calculating time it takes to cook pizzas - number of pizzas divided by oven limit rounded up
+        time += (int)Math.ceil((double) order.getPizzas().size() / (double) getOven_limit());
 
-        order.time += time;
+        order.add_time(time);
     }
 }

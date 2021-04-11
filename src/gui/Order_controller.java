@@ -13,6 +13,7 @@ import order.*;
 
 import java.util.ArrayList;
 
+// using Order class as model
 public class Order_controller {
 
     @FXML
@@ -115,6 +116,7 @@ public class Order_controller {
 
     @FXML
     void order_action(ActionEvent event) {
+
         // handling size
         int size;
         if (size_32.isSelected()){size = 32;}
@@ -161,8 +163,12 @@ public class Order_controller {
         text_summary.appendText(pizza.info());
         reset_buttons();                                    // resetting buttons
     }
+
     @FXML
     void finish_order(ActionEvent event) {
+        if (pizzas.isEmpty()){
+            text_summary.appendText(order.final_time());
+        }
         order = new Order("Pizzaaaa", pizzas, true);
         order.do_order();
         text_summary.appendText(order.final_time());

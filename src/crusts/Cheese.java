@@ -5,7 +5,7 @@ import order.Crust;
 public class Cheese extends Crust{
     public Cheese(int a){
         super(a);
-        price = 1;
-        name = "Cheese";
+        change_Price(1);
+        setName("Cheese");
     }
 }

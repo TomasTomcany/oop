@@ -5,7 +5,7 @@ import order.Topping;
 public class Sausage extends Topping{
     public Sausage(int a){
         super(a);
-        price = 1;
-        name = "Sausage";
+        chnage_Price(1);
+        setName("Sausage");
     }
 }

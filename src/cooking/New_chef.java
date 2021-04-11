@@ -7,8 +7,8 @@ public class New_chef extends Chef{
 
     public New_chef(){
         super();
-        this.cook_time_prepare = 8;
-        this.name = "Waluigi";
+        setCook_time_prepare(8);
+        setName("Waluigi");
     }
 
     public void make_pizza(Order order){
@@ -18,13 +18,13 @@ public class New_chef extends Chef{
         time += 5;
 
         // calculating time it takes to prepare pizzas
-        for (Pizza item: order.pizzas){
-            time += this.cook_time_prepare;
+        for (Pizza item: order.getPizzas()){
+            time += getCook_time_prepare();
         }
 
         // calculating time it takes to cook pizzas
-        time += (int)Math.ceil((double) order.pizzas.size() / (double) this.oven_limit);
+        time += (int)Math.ceil((double) order.getPizzas().size() / (double) getOven_limit());
 
-        order.time += time;
+        order.add_time(time);
     }
 }
