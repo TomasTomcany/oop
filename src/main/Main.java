@@ -1,4 +1,4 @@
-package gui;
+package main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,12 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 
 public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("order_scene.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Order_view.fxml")));
         primaryStage.setTitle("Pizza Time");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

@@ -1,20 +1,24 @@
-package gui;
+package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import toppings.*;
 import crusts.*;
 import bases.*;
 import order.*;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.ResourceBundle;
 
 // using Order class as model
 public class Order_controller {
+
+    @FXML
+    private TextField name_field;
 
     @FXML
     private RadioButton size_32;
@@ -88,11 +92,28 @@ public class Order_controller {
     @FXML
     private Button finish_order;
 
+    @FXML
+    private Button newOrder_btn;
+
+    @FXML
+    private Button back_btn;
+
+    @FXML
+    private ChoiceBox<String> delivery_cb;
+    private final String[] delivery_choice = {"Yes", "No"};
+    private final ObservableList<String> delivery_list = FXCollections.observableArrayList(delivery_choice);
+
+
     public Order order;                                         // model
     public final ArrayList<Pizza> pizzas = new ArrayList<>();   // ArrayList of pizzas is aggregated to order
 
 
+    public void initialize(){
+        delivery_cb.setItems(delivery_list);
+        delivery_cb.setValue("Yes");
+    }
 
+    // Resets all radio buttons after clicking add pizza button
     void reset_buttons(){
         size_32.setSelected(false);
         size_40.setSelected(false);
@@ -114,6 +135,7 @@ public class Order_controller {
         topping_sausage.setSelected(false);
     }
 
+    // Creating pizza object to append to Arraylist based on what the user has picked
     @FXML
     void order_action(ActionEvent event) {
 
@@ -164,21 +186,65 @@ public class Order_controller {
         reset_buttons();                                    // resetting buttons
     }
 
+    // finalizing order by constructing Order object based on constructed pizza
     @FXML
     void finish_order(ActionEvent event) {
-        if (pizzas.isEmpty()){
-            text_summary.appendText(order.final_time());
+        // getting name of customer
+        String name = name_field.getText();
+        if (name.isEmpty()){
+            text_summary.appendText("Please enter your name!\n");
+            return;
         }
-        order = new Order("Pizzaaaa", pizzas, true);
+
+        // getting whether user wants food to be delivered
+        boolean delivery = delivery_cb.getValue().equals("Yes");
+
+        // checking if any pizza was selected
+        if (pizzas.isEmpty()){
+            text_summary.appendText("No pizzas were selected!\n");
+            return;
+        }
+
+        // constructing Order object and start doing the order and calculating time it will take
+        if (order != null){
+            text_summary.appendText("Order has already been created!\n");
+            return;
+        }
+        order = new Order(name, pizzas, delivery);
         order.do_order();
-        text_summary.appendText(order.final_time());
-        text_summary.appendText(order.final_price());
+        text_summary.appendText(final_time(order));
+        text_summary.appendText(final_price(order));
+
 
 //        Node source = (Node) event.getSource();
 //        Stage stage = (Stage) source.getScene().getWindow();
 //        stage.close();
     }
 
+    @FXML
+    void clear_all(ActionEvent event) {
+        reset_buttons();
+        delivery_cb.setValue("Yes");
+        name_field.setText("");
+        text_summary.setText("");
 
+        // resetting order
+        pizzas.clear();
+        order = null;
+    }
 
+    // creating string for printing price of the order in text area
+    public String final_price(Order order){
+
+        return "Final price of the order: " + order.get_price() + "€\n";
+    }
+
+    // creating string for printing time it will take to prepare and maybe deliver order
+    public String final_time(Order order){
+        if (order.isDelivery()){
+            return "Your order will arrive in " + order.getTime() + " minutes.\n";
+        }
+        return "Your order will be ready in " + order.getTime() + " minutes.\n";
+
+    }
 }

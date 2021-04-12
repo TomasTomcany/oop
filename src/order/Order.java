@@ -17,7 +17,6 @@ public class Order {
 
     private final ArrayList<Pizza> pizzas;
     private int time;
-
     private final String order_name;
     private boolean is_done;
     private Chef chef ;
@@ -41,7 +40,7 @@ public class Order {
     }
 
     public double get_price(){
-        return this.price;
+        return Math.round(this.price * 100.0) / 100.0;
     }
 
     public void add_time(int t) {this.time += t;}
@@ -55,21 +54,13 @@ public class Order {
     }
 
 
-
-
-    // creating string for printing price of the order in text area
-    public String final_price(){
-        return "Final price of the order: " + this.get_price() + "€\n";
+    public int getTime() {
+        return time;
     }
 
-    // creating string for printing time it will take to prepare and maybe deliver order
-    public String final_time(){
-        if (delivery){
-            return "Your order will arrive in " + this.time + " minutes.\n";
-        }
-        else{
-            return "Your order will be ready in " + this.time + " minutes.\n";
-        }
+
+    public boolean isDelivery() {
+        return delivery;
     }
 
     // assigning chef to do the order
@@ -93,10 +84,6 @@ public class Order {
             assign_chef(new Clumsy_chef());
         }
         chef.make_pizza(this);                       // adds time of handling the order, polymorphism
-
-        if (this.chef == null){
-            System.out.println("No chef assigned to the order!.\n");
-        }
 
 
         // handling delivery
