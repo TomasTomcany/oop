@@ -9,6 +9,19 @@ public class Pizza {
     private final Crust crust;
     private final ArrayList<Topping> toppings;
 
+    public Base getBase() {
+        return base;
+    }
+
+    public Crust getCrust() {
+        return crust;
+    }
+
+    public ArrayList<Topping> getToppings() {
+        return toppings;
+    }
+
+
     // constuctor
     public Pizza(int a, Base b, Crust c, ArrayList<Topping> t){
         size = a;
@@ -28,16 +41,4 @@ public class Pizza {
 
     public int get_size(){return size;}
 
-    // prints all info of pizza into text area in GUI
-    public String info(){
-        StringBuilder info;
-        info = new StringBuilder("Size: " + get_size() + "cm\n" +
-                "Base: " + base.get_name() + " " + base.get_price() + "€\n" +
-                "Crust: " + crust.get_name() + " " + crust.get_price() + "€\n");
-        for (Topping item: toppings){
-            info.append("Topping: ").append(item.get_name()).append(" ").append(item.get_price()).append("€\n");
-        }
-        info.append("Price of pizza: ").append(get_price()).append("€\n\n");
-        return info.toString();
-    }
 }

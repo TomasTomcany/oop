@@ -189,7 +189,7 @@ public class Order_controller {
         Pizza pizza = new Pizza(size, base, crust, toppings);
         pizzas.add(pizza);
 
-        text_summary.appendText(pizza.info());
+        text_summary.appendText(pizza_info(pizza));
         reset_buttons();                                    // resetting buttons
     }
 
@@ -263,5 +263,18 @@ public class Order_controller {
         }
         return "Your order will be ready in " + order.getTime() + " minutes.\n";
 
+    }
+
+    // prints all info of pizza into text area in GUI
+    public String pizza_info(Pizza pizza){
+        StringBuilder info;
+        info = new StringBuilder("Size: " + pizza.get_size() + "cm\n" +
+                "Base: " + pizza.getBase().get_name() + " " + pizza.getBase().get_price() + "€\n" +
+                "Crust: " + pizza.getCrust().get_name() + " " + pizza.getCrust().get_price() + "€\n");
+        for (Topping item: pizza.getToppings()){
+            info.append("Topping: ").append(item.get_name()).append(" ").append(item.get_price()).append("€\n");
+        }
+        info.append("Price of pizza: ").append(pizza.get_price()).append("€\n\n");
+        return info.toString();
     }
 }
