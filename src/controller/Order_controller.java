@@ -4,13 +4,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import toppings.*;
 import crusts.*;
 import bases.*;
 import order.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
@@ -189,6 +196,7 @@ public class Order_controller {
     // finalizing order by constructing Order object based on constructed pizza
     @FXML
     void finish_order(ActionEvent event) {
+
         // getting name of customer
         String name = name_field.getText();
         if (name.isEmpty()){
@@ -214,11 +222,6 @@ public class Order_controller {
         order.do_order();
         text_summary.appendText(final_time(order));
         text_summary.appendText(final_price(order));
-
-
-//        Node source = (Node) event.getSource();
-//        Stage stage = (Stage) source.getScene().getWindow();
-//        stage.close();
     }
 
     @FXML
@@ -231,6 +234,20 @@ public class Order_controller {
         // resetting order
         pizzas.clear();
         order = null;
+    }
+
+    @FXML
+    void switch_scene_back(ActionEvent event) throws IOException {
+
+        Parent node;
+        // getting stage
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+
+        // loading login view
+        node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Login_view.fxml")));
+
+        stage.setScene(new Scene(node));
     }
 
     // creating string for printing price of the order in text area
