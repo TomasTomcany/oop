@@ -1,5 +1,6 @@
 package controller;
 
+import databases.Inventory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,8 +19,6 @@ import order.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Observable;
-import java.util.ResourceBundle;
 
 // using Order class as model
 public class Order_controller {
@@ -222,6 +221,9 @@ public class Order_controller {
         order.do_order();
         text_summary.appendText(final_time(order));
         text_summary.appendText(final_price(order));
+
+        // saving Inventory database
+        Inventory.saveInventory();
     }
 
     @FXML

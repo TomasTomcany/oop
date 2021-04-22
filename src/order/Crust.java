@@ -1,6 +1,8 @@
 package order;
 
-public class Crust implements PizzaParts{
+import java.io.Serializable;
+
+public class Crust implements PizzaParts, Serializable {
     private double price;
     private String name;
     private final int size;

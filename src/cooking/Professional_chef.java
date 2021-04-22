@@ -7,10 +7,11 @@ public class Professional_chef extends Chef{
 
     public Professional_chef(){
         super();
-        setCook_time_prepare(4);
+        setCook_time_prepare(2);
         setName("Mario");
     }
 
+    @Override
     public void make_pizza(Order order) throws Exception {
         int time = 0;
 

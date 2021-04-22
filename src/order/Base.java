@@ -1,6 +1,8 @@
 package order;
 
-public class Base implements PizzaParts{
+import java.io.Serializable;
+
+public class Base implements PizzaParts, Serializable {
     private double price;
     private String name;
     private final int size;

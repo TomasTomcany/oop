@@ -19,7 +19,7 @@ public class Login_controller {
 
     @FXML
     private ChoiceBox<String> login_cb;
-    private final String[] scenes = {"Customer", "Inventory", "ManageOrdersTODO"};
+    private final String[] scenes = {"Customer", "Inventory", "CurrentOrders"};
     private final ObservableList<String> scenes_list = FXCollections.observableArrayList(scenes);
 
     @FXML

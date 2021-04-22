@@ -8,10 +8,11 @@ public class Clumsy_chef extends Chef{
 
     public Clumsy_chef(){
         super();
-        setCook_time_prepare(6);
+        setCook_time_prepare(3);
         setName("Luigi");
     }
 
+    @Override
     public void make_pizza(Order order) throws Exception {
         int time = 0;
         Random rand = new Random();

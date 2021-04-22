@@ -1,6 +1,6 @@
 package controller;
 
-import inventory.Inventory;
+import databases.Inventory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import order.PizzaParts;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Inventory_controller {
@@ -73,6 +71,9 @@ public class Inventory_controller {
         // clearing text fields
         order_name_field.setText("");
         quantity_field.setText("");
+
+        // saving inventory database
+        Inventory.saveInventory();
     }
 
     @FXML

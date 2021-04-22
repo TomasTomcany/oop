@@ -1,4 +1,4 @@
-package inventory;
+package databases;
 
 
 import bases.*;
@@ -8,10 +8,11 @@ import order.Crust;
 import order.Topping;
 import toppings.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Inventory {
+public class Inventory implements Serializable {
 
     // singleton pattern
     private static Inventory instance;
@@ -46,9 +47,11 @@ public class Inventory {
     }
 
 
-    private ArrayList<Base> bases = new ArrayList<>();
-    private ArrayList<Crust> crusts = new ArrayList<>();
-    private ArrayList<Topping> toppings = new ArrayList<>();
+
+    private final ArrayList<Base> bases = new ArrayList<>();
+    private final ArrayList<Crust> crusts = new ArrayList<>();
+    private final ArrayList<Topping> toppings = new ArrayList<>();
+
 
 
     public ArrayList<Base> getBases() {
@@ -184,5 +187,25 @@ public class Inventory {
                 return;
             }
         }
+    }
+
+
+    // methods for serializing Inventory database
+    public static void saveInventory(){
+        // method for saving inventory database into text file
+        try{
+            FileOutputStream file_out = new FileOutputStream("inv.ser");
+            ObjectOutputStream obj_out  = new ObjectOutputStream(file_out);
+            obj_out.writeObject(instance);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadInventory() throws IOException, ClassNotFoundException {
+        // method for loading inventory database from text file
+        FileInputStream file_in = new FileInputStream("inv.ser");
+        ObjectInputStream obj_in = new ObjectInputStream(file_in);
+        instance = (Inventory) obj_in.readObject();
     }
 }

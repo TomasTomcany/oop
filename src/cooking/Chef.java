@@ -1,6 +1,6 @@
 package cooking;
 
-import inventory.Inventory;
+import databases.Inventory;
 import order.Order;
 
 public abstract class Chef {

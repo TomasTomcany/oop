@@ -1,6 +1,6 @@
 package order;
 
-import inventory.Inventory;
+import databases.Inventory;
 
 import java.util.ArrayList;
 

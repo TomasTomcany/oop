@@ -1,6 +1,8 @@
 package order;
 
-public abstract class Topping implements PizzaParts{
+import java.io.Serializable;
+
+public abstract class Topping implements PizzaParts, Serializable {
     private double price;
     private String name;
     private final int size;
