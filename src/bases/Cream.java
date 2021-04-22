@@ -8,4 +8,6 @@ public class Cream extends Base {
         change_Price(4.25);
         setName("Cream");
     }
+
+
 }

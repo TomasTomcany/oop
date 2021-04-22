@@ -11,12 +11,14 @@ public class Professional_chef extends Chef{
         setName("Mario");
     }
 
-    public void make_pizza(Order order){
+    public void make_pizza(Order order) throws Exception {
         int time = 0;
 
         // calculating time it takes to prepare pizzas
         for (Pizza item: order.getPizzas()){
             time += getCook_time_prepare();
+            // expending ingredients from inventory
+            item.expend_ingredients();
         }
 
         // calculating time it takes to cook pizzas

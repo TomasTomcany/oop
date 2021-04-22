@@ -11,7 +11,7 @@ public class New_chef extends Chef{
         setName("Waluigi");
     }
 
-    public void make_pizza(Order order){
+    public void make_pizza(Order order) throws Exception {
         int time = 0;
 
         // adding buffer time, since this chef does not know his way around kitchen yet
@@ -20,6 +20,8 @@ public class New_chef extends Chef{
         // calculating time it takes to prepare pizzas
         for (Pizza item: order.getPizzas()){
             time += getCook_time_prepare();
+            // expending ingredients from inventory
+            item.expend_ingredients();
         }
 
         // calculating time it takes to cook pizzas

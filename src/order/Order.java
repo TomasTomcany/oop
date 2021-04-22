@@ -69,7 +69,7 @@ public class Order {
     }
 
     // doing the order, calculating the time it takes to cook based on the chef and order
-    public void do_order(){
+    public void do_order() throws Exception {
 
         // handling cooking
         Random rand = new Random();                         // randomly choosing chef for the order

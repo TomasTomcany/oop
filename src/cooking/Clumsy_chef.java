@@ -12,7 +12,7 @@ public class Clumsy_chef extends Chef{
         setName("Luigi");
     }
 
-    public void make_pizza(Order order){
+    public void make_pizza(Order order) throws Exception {
         int time = 0;
         Random rand = new Random();
 
@@ -22,7 +22,10 @@ public class Clumsy_chef extends Chef{
             // there is 25% chance that he messes up current pizza and has to prepare another one
             if (random == 3){i--;}
 
+            // adding time for preparation of pizza for each pizza
             time += getCook_time_prepare();
+            // expending ingredients from inventory
+            order.getPizzas().get(i).expend_ingredients();
         }
 
         // calculating time it takes to cook pizzas - number of pizzas divided by oven limit rounded up

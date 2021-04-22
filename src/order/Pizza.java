@@ -1,5 +1,7 @@
 package order;
 
+import inventory.Inventory;
+
 import java.util.ArrayList;
 
 public class Pizza {
@@ -41,4 +43,14 @@ public class Pizza {
 
     public int get_size(){return size;}
 
+    public void expend_ingredients() throws Exception {
+        // expending all of the ingredients of pizza from inventory
+        Inventory inventory = Inventory.getInstance();
+
+        inventory.expend_base(this.base);
+        inventory.expend_crust(this.crust);
+        for (Topping item: this.toppings){
+            inventory.expend_toppings(item);
+        }
+    }
 }

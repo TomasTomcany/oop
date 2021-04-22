@@ -19,7 +19,7 @@ public class Login_controller {
 
     @FXML
     private ChoiceBox<String> login_cb;
-    private final String[] scenes = {"Customer", "InventoryTODO", "ManageOrdersTODO"};
+    private final String[] scenes = {"Customer", "Inventory", "ManageOrdersTODO"};
     private final ObservableList<String> scenes_list = FXCollections.observableArrayList(scenes);
 
     @FXML
@@ -40,6 +40,9 @@ public class Login_controller {
 
         if (login_cb.getValue().equals("Customer")){
             node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Order_view.fxml")));
+        }
+        else if (login_cb.getValue().equals("Inventory")){
+            node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Inventory_view.fxml")));
         }
         else {
             return;

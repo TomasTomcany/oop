@@ -195,7 +195,7 @@ public class Order_controller {
 
     // finalizing order by constructing Order object based on constructed pizza
     @FXML
-    void finish_order(ActionEvent event) {
+    void finish_order(ActionEvent event) throws Exception {
 
         // getting name of customer
         String name = name_field.getText();

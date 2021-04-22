@@ -1,5 +1,6 @@
 package cooking;
 
+import inventory.Inventory;
 import order.Order;
 
 public abstract class Chef {
@@ -8,10 +9,12 @@ public abstract class Chef {
     private final int cook_time;                           // time it takes to cook 1 pizza in minutes
     private final int oven_limit;                          // how may pizzas can be cooked at the same time
     private String name;
+    private Inventory inventory;
 
     Chef (){
         this.cook_time = 15;
         this.oven_limit = 5;
+        this.inventory = Inventory.getInstance();
     }
 
     public int getOven_limit() {
@@ -30,6 +33,6 @@ public abstract class Chef {
         this.name = name;
     }
 
-    public void make_pizza(Order order){}
+    public void make_pizza(Order order) throws Exception {}
 
 }
