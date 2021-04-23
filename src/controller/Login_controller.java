@@ -38,14 +38,18 @@ public class Login_controller {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
 
-        if (login_cb.getValue().equals("Customer")){
-            node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Order_view.fxml")));
-        }
-        else if (login_cb.getValue().equals("Inventory")){
-            node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Inventory_view.fxml")));
-        }
-        else {
-            return;
+        switch (login_cb.getValue()) {
+            case "Customer":
+                node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Order_view.fxml")));
+                break;
+            case "Inventory":
+                node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Inventory_view.fxml")));
+                break;
+            case "CurrentOrders":
+                node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Order_db_view.fxml")));
+                break;
+            default:
+                return;
         }
 
 

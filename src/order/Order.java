@@ -1,5 +1,6 @@
 package order;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,22 +8,24 @@ import cooking.Chef;
 import cooking.Clumsy_chef;
 import cooking.New_chef;
 import cooking.Professional_chef;
+import databases.Order_db;
 import delivery.Bicycle;
 import delivery.Car;
 import delivery.Scooter;
 import delivery.Vehicle;
 
-public class Order {
-
+public class Order{
 
     private final ArrayList<Pizza> pizzas;
     private int time;
     private final String order_name;
     private boolean is_done;
-    private Chef chef ;
+    private Chef chef;
+    private String chef_name;
+ private Vehicle vehicle = new Car("Normal");
     private double price;
     private final boolean delivery;
-    private final String[] traffic = {"Jam", "Free", "Normal"};
+    private final Order_db order_db = Order_db.getInstance();
 
     // constructor
     public Order(String a, ArrayList<Pizza> order, boolean b) {
@@ -37,6 +40,50 @@ public class Order {
         for (Pizza item: order){
             price += item.get_price();
         }
+
+        // randomly choosing chef for the order
+        Random rand = new Random();
+        int random = rand.nextInt(3);
+        if (random == 0){
+            assign_chef(new Professional_chef());
+        }
+        else if(random == 1){
+            assign_chef(new New_chef());
+        }
+        else{
+            assign_chef(new Clumsy_chef());
+        }
+        this.chef_name = this.chef.getName();
+
+        if (delivery) {
+            // randomly choosing vehicle and traffic for the order
+            random = rand.nextInt(3);
+            int traffic_choice = rand.nextInt(3);
+            String[] traffic = {"Jam", "Free", "Normal"};
+            if (random == 0) {
+                this.vehicle = new Car(traffic[traffic_choice]);
+            } else if (random == 1) {
+                this.vehicle = new Scooter(traffic[traffic_choice]);
+            } else {
+                this.vehicle = new Bicycle(traffic[traffic_choice]);
+            }
+        }
+    }
+
+    public String getChef_name() {
+        return chef_name;
+    }
+
+    public String getPrice() {
+        return String.format("%.2f", price);
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public boolean isIs_done() {
+        return is_done;
     }
 
     public double get_price(){
@@ -53,11 +100,9 @@ public class Order {
         return order_name;
     }
 
-
     public int getTime() {
         return time;
     }
-
 
     public boolean isDelivery() {
         return delivery;
@@ -69,44 +114,24 @@ public class Order {
     }
 
     // doing the order, calculating the time it takes to cook based on the chef and order
-    public void do_order() throws Exception {
+    public void do_order(boolean is_db, boolean isQueue) throws Exception {
 
         // handling cooking
-        Random rand = new Random();                         // randomly choosing chef for the order
-        int random = rand.nextInt(3);
-        if (random == 0){
-            assign_chef(new Professional_chef());
-        }
-        else if(random == 1){
-            assign_chef(new New_chef());
-        }
-        else{
-            assign_chef(new Clumsy_chef());
-        }
-        chef.make_pizza(this);                       // adds time of handling the order, polymorphism
-
+        chef.make_pizza(this, isQueue);                        // adds time of handling the order, polymorphism
 
         // handling delivery
-        if (delivery){
-            random = rand.nextInt(3);
-            int traffic_choice = rand.nextInt(3);
-
-            Vehicle vehicle;
-            if (random == 0){
-                vehicle = new Car(traffic[traffic_choice]);
-            }
-            else if (random == 1){
-                vehicle = new Scooter(traffic[traffic_choice]);
-            }
-            else{
-                vehicle = new Bicycle(traffic[traffic_choice]);
-            }
-
+        if (delivery) {
             this.time += vehicle.deliver();                 // adds time it takes to deliver
             this.price += 0.5;                              // adds to price for delivering
         }
 
 
         is_done = true;
+
+        // if not used to complete orders from order database
+        if (!is_db) {
+            // adding order to order database
+            order_db.addOrder(this);
+        }
     }
 }

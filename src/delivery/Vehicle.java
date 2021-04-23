@@ -1,15 +1,12 @@
 package delivery;
 
-import order.Order;
 
-public abstract class Vehicle {
-    String type;                    // type vehicle
-    int time;                       // time it takes to deliver order to customer
-    String traffic;
+public interface Vehicle {
+    String type = null;                    // type vehicle
+    int time = 0;                           // time it takes to deliver order to customer
+    String traffic = null;
 
-    public Vehicle(String a){
-        this.traffic = a;
-    }
+    int deliver();
 
-    public int deliver(){return 0;}
+    int getTime();
 }

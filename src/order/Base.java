@@ -18,17 +18,18 @@ public class Base implements PizzaParts, Serializable {
             this.price *= 1.5;
         }
     }
-    public void change_Price(double price) {
-        this.price = price;
-    }
+
+    public double get_price(){return Math.round(this.price * 100.0) / 100.0;}
+
+    public String get_name() {return this.name;}
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public double get_price(){return Math.round(this.price * 100.0) / 100.0;}
-
-    public String get_name() {return this.name;}
+    public void change_Price(double price) {
+        this.price = price;
+    }
 
     public void lower_Inventory_num() {
         this.inventory_num -= 1;

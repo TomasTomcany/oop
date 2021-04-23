@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0"
+            style="-fx-background-color: #e6e6e6; -fx-border-color: #000000; -fx-border-width: 5;"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.Order_db_controller">
+    <HBox layoutX="33.0" layoutY="23.0" prefHeight="413.0" prefWidth="834.0">
+        <TableView fx:id="table" prefHeight="413.0" prefWidth="845.0">
+            <columns>
+                <TableColumn fx:id="name_column" prefWidth="272.0" text="Name"/>
+                <TableColumn fx:id="price_column" minWidth="0.0" prefWidth="126.0" text="Price"/>
+                <TableColumn fx:id="time_column" prefWidth="101.0" text="Time"/>
+                <TableColumn fx:id="chef_column" prefWidth="153.0" text="Chef"/>
+                <TableColumn fx:id="delivery_column" prefWidth="93.0" text="Delivery"/>
+                <TableColumn fx:id="isdone_column" prefWidth="87.0" text="Is done"/>
+            </columns>
+        </TableView>
+    </HBox>
+    <HBox layoutX="118.0" layoutY="468.0" prefHeight="100.0" prefWidth="658.0" spacing="50.0"
+          style="-fx-background-color: #f49600; -fx-border-width: 2; -fx-border-color: #000000;">
+        <padding>
+            <Insets left="20.0" top="25.0"/>
+        </padding>
+        <Button fx:id="generate_btn" mnemonicParsing="false" onAction="#generate_orders" prefHeight="44.0"
+                prefWidth="122.0" text="Generate orders"/>
+        <Button fx:id="complete_btn" mnemonicParsing="false" onAction="#complete_orders" prefHeight="45.0"
+                prefWidth="117.0" text="Complete orders"/>
+        <Button fx:id="clear_btn" mnemonicParsing="false" onAction="#clear_orders" prefHeight="46.0"
+                prefWidth="109.0" text="Clear orders"/>
+        <Button fx:id="back_btn" mnemonicParsing="false" onAction="#switch_scene_back" prefHeight="44.0"
+                prefWidth="117.0" text="Back"/>
+    </HBox>
+</AnchorPane>

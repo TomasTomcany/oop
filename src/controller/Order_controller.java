@@ -1,6 +1,7 @@
 package controller;
 
 import databases.Inventory;
+import databases.Order_db;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -218,7 +219,7 @@ public class Order_controller {
             return;
         }
         order = new Order(name, pizzas, delivery);
-        order.do_order();
+        order.do_order(false, false);
         text_summary.appendText(final_time(order));
         text_summary.appendText(final_price(order));
 

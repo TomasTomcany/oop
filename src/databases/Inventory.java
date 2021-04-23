@@ -53,15 +53,6 @@ public class Inventory implements Serializable {
     private final ArrayList<Topping> toppings = new ArrayList<>();
 
 
-
-    public ArrayList<Base> getBases() {
-        return bases;
-    }
-
-    public ArrayList<Crust> getCrusts() {
-        return crusts;
-    }
-
     public ArrayList<Topping> getToppings() {
         return toppings;
     }
@@ -110,20 +101,17 @@ public class Inventory implements Serializable {
         StringBuilder info = new StringBuilder();
 
         for (Base item: bases){
-            info.append(item.get_name()).append("   ").append(item.get_price()).append(" "  )
-                        .append(item.getInventory_num()).append("\n");
+            info.append(item.get_name()).append("   ").append(item.getInventory_num()).append("\n");
         }
         info.append("\n");
 
         for (Crust item: crusts){
-            info.append(item.get_name()).append("   ").append(item.get_price()).append("   ")
-                    .append(item.getInventory_num()).append("\n");
+            info.append(item.get_name()).append("   ").append(item.getInventory_num()).append("\n");
         }
         info.append("\n");
 
         for (Topping item: toppings){
-            info.append(item.get_name()).append("   ").append(item.get_price()).append("   ")
-                    .append(item.getInventory_num()).append("\n");
+            info.append(item.get_name()).append("   ").append(item.getInventory_num()).append("\n");
         }
         info.append("\n");
 
@@ -197,6 +185,9 @@ public class Inventory implements Serializable {
             FileOutputStream file_out = new FileOutputStream("inv.ser");
             ObjectOutputStream obj_out  = new ObjectOutputStream(file_out);
             obj_out.writeObject(instance);
+
+            obj_out.close();
+            file_out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -206,6 +197,9 @@ public class Inventory implements Serializable {
         // method for loading inventory database from text file
         FileInputStream file_in = new FileInputStream("inv.ser");
         ObjectInputStream obj_in = new ObjectInputStream(file_in);
-        instance = (Inventory) obj_in.readObject();
+        instance = (Inventory)obj_in.readObject();
+
+        obj_in.close();
+        file_in.close();
     }
 }

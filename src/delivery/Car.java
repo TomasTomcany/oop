@@ -1,11 +1,18 @@
 package delivery;
 
-public class Car extends Vehicle{
+public class Car implements Vehicle{
+    private final String type;                    // type of vehicle
+    private int time;                       // time it takes to deliver order to customer
+    private final String traffic;
 
     public Car(String a){
-        super(a);
+        this.traffic = a;
         this.type = "Car";
         this.time = 30;
+    }
+
+    public int getTime() {
+        return time;
     }
 
     public int deliver(){

@@ -19,6 +19,10 @@ public abstract class Topping implements PizzaParts, Serializable {
         }
     }
 
+    public double get_price(){return Math.round(this.price * 100.0) / 100.0;}
+
+    public String get_name(){return name;}
+
     public void setName(String name) {
         this.name = name;
     }
@@ -26,10 +30,6 @@ public abstract class Topping implements PizzaParts, Serializable {
     public void change_Price(double price) {
         this.price = price;
     }
-
-    public double get_price(){return Math.round(this.price * 100.0) / 100.0;}
-
-    public String get_name(){return name;}
 
     public void lower_Inventory_num() {
         this.inventory_num -= 1;

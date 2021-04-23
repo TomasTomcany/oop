@@ -1,6 +1,7 @@
 package main;
 
 import databases.Inventory;
+import databases.Order_db;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,7 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
         // loading inventory database from text file (for serialization)
         Inventory.loadInventory();
+
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Login_view.fxml")));
         primaryStage.setTitle("Pizza Time");
