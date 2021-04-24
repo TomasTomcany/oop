@@ -3,6 +3,7 @@ package databases;
 
 import bases.*;
 import crusts.*;
+import exceptions.NotInInventoryException;
 import order.Base;
 import order.Crust;
 import order.Topping;
@@ -57,45 +58,6 @@ public class Inventory implements Serializable {
         return toppings;
     }
 
-    public void expend_base(Base base) throws Exception {
-        // expending specific base in database
-        for (Base item: bases){
-            if (item.get_name().equals(base.get_name())){
-                // if there is not enough of the item on the inventory, pizza cant be made of it
-                if (item.getInventory_num() < 1){
-                    throw new Exception(item.get_name() + " is not on the inventory!\n");
-                }
-                item.lower_Inventory_num();
-            }
-        }
-    }
-
-    public void expend_crust(Crust crust) throws Exception {
-        // expending specific base in database
-        for (Crust item: crusts){
-            if (item.get_name().equals(crust.get_name())){
-                // if there is not enough of the item on the inventory, pizza cant be made of it
-                if (item.getInventory_num() < 1){
-                    throw new Exception(item.get_name() + " is not on the inventory!\n");
-                }
-                item.lower_Inventory_num();
-            }
-        }
-    }
-
-    public void expend_toppings(Topping topping) throws Exception {
-        // expending specific base in database
-        for (Topping item: toppings){
-            if (item.get_name().equals(topping.get_name())){
-                // if there is not enough of the item on the inventory, pizza cant be made of it
-                if (item.getInventory_num() < 1){
-                    throw new Exception(item.get_name() + " is not on the inventory!\n");
-                }
-                item.lower_Inventory_num();
-            }
-        }
-    }
-
     public String get_Inventory_info(){
         // gets string of name, price and amount in inventory of all ingredients in inventory
         StringBuilder info = new StringBuilder();
@@ -126,7 +88,7 @@ public class Inventory implements Serializable {
             if (item.getInventory_num() < 10){
                 // if there is print warning about low amount on inventory
                 info.append("Low amount of ").append(item.get_name()).append(" on the inventory (")
-                            .append(item.getInventory_num()).append(").\n");
+                        .append(item.getInventory_num()).append(").\n");
             }
         }
 
@@ -173,6 +135,50 @@ public class Inventory implements Serializable {
             if (item.get_name().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT))){
                 item.add_Inventory_num(amount);
                 return;
+            }
+        }
+    }
+
+
+    // own exception for checking if there is enough on the inventory before making pizza
+    static void check_if_enough(int num)throws NotInInventoryException{
+        if (num < 1){
+            throw new NotInInventoryException(num + " is not on the inventory!\n");
+        }
+    }
+
+    public void expend_base(Base base) throws NotInInventoryException {
+        // expending specific base in database
+        for (Base item: bases){
+            if (item.get_name().equals(base.get_name())){
+                // if there is not enough of the item on the inventory, pizza cant be made of it
+                check_if_enough(item.getInventory_num());
+
+                item.lower_Inventory_num();
+            }
+        }
+    }
+
+    public void expend_crust(Crust crust) throws NotInInventoryException {
+        // expending specific base in database
+        for (Crust item: crusts){
+            if (item.get_name().equals(crust.get_name())){
+                // if there is not enough of the item on the inventory, pizza cant be made of it
+                check_if_enough(item.getInventory_num());
+
+                item.lower_Inventory_num();
+            }
+        }
+    }
+
+    public void expend_toppings(Topping topping) throws NotInInventoryException {
+        // expending specific base in database
+        for (Topping item: toppings){
+            if (item.get_name().equals(topping.get_name())){
+                // if there is not enough of the item on the inventory, pizza cant be made of it
+                check_if_enough(item.getInventory_num());
+
+                item.lower_Inventory_num();
             }
         }
     }
