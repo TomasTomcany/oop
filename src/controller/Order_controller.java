@@ -20,6 +20,7 @@ import order.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 // using Order class as model
 public class Order_controller {
@@ -218,7 +219,13 @@ public class Order_controller {
             text_summary.appendText("Order has already been created!\n");
             return;
         }
-        order = new Order(name, pizzas, delivery);
+
+        // randomly pick traffic situation
+        Random rand = new Random();
+        int traffic_choice = rand.nextInt(3);
+        String[] traffics = {"Jam", "Free", "Normal"};
+
+        order = new Order(name, pizzas, delivery, traffics[traffic_choice]);
         order.do_order(false, false);
         text_summary.appendText(final_time(order));
         text_summary.appendText(final_price(order));

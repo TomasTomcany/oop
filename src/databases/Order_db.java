@@ -126,7 +126,7 @@ public class Order_db{
                 bool = false;
             }
 
-            Order order = new Order("Generated", pizzas, bool);
+            Order order = new Order("Generated", pizzas, bool, "Normal");
 
             // adding order to database
             this.addOrder(order);

@@ -1,6 +1,5 @@
 package order;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,10 +8,13 @@ import cooking.Clumsy_chef;
 import cooking.New_chef;
 import cooking.Professional_chef;
 import databases.Order_db;
-import delivery.Bicycle;
-import delivery.Car;
-import delivery.Scooter;
-import delivery.Vehicle;
+import delivery.strategies.FreeTrafficStartegy;
+import delivery.strategies.JammedTrafficStrategy;
+import delivery.strategies.NormalTrafficStrategy;
+import delivery.vehicles.Bicycle;
+import delivery.vehicles.Car;
+import delivery.vehicles.Scooter;
+import delivery.vehicles.Vehicle;
 
 public class Order{
 
@@ -22,19 +24,21 @@ public class Order{
     private boolean is_done;
     private Chef chef;
     private String chef_name;
- private Vehicle vehicle = new Car("Normal");
+    private Vehicle vehicle = new Car();
     private double price;
     private final boolean delivery;
     private final Order_db order_db = Order_db.getInstance();
+    private final String traffic;
 
     // constructor
-    public Order(String a, ArrayList<Pizza> order, boolean b) {
+    public Order(String a, ArrayList<Pizza> order, boolean b, String tr_situation) {
         this.order_name = a;
         this.pizzas = order;
         this.time = 0;
         this.is_done = false;
         this.chef = null;
         this.delivery = b;
+        this.traffic = tr_situation;
 
         // setting the price of the order based on the prices of pizzas in the order
         for (Pizza item: order){
@@ -58,18 +62,17 @@ public class Order{
         if (delivery) {
             // randomly choosing vehicle and traffic for the order
             random = rand.nextInt(3);
-            int traffic_choice = rand.nextInt(3);
-            String[] traffic = {"Jam", "Free", "Normal"};
             if (random == 0) {
-                this.vehicle = new Car(traffic[traffic_choice]);
+                this.vehicle = new Car();
             } else if (random == 1) {
-                this.vehicle = new Scooter(traffic[traffic_choice]);
+                this.vehicle = new Scooter();
             } else {
-                this.vehicle = new Bicycle(traffic[traffic_choice]);
+                this.vehicle = new Bicycle();
             }
         }
     }
 
+    // getters and setters
     public String getChef_name() {
         return chef_name;
     }
@@ -108,6 +111,9 @@ public class Order{
         return delivery;
     }
 
+
+
+
     // assigning chef to do the order
     public void assign_chef(Chef a){
         this.chef = a;
@@ -121,6 +127,18 @@ public class Order{
 
         // handling delivery
         if (delivery) {
+            // setting up strategy
+            if (traffic.equals("Normal")) {
+                vehicle.setTrafficStrategy(new NormalTrafficStrategy());
+            }
+            else if (traffic.equals("Jammed")) {
+                vehicle.setTrafficStrategy(new JammedTrafficStrategy());
+            }
+            else {
+                vehicle.setTrafficStrategy(new FreeTrafficStartegy());
+            }
+
+
             this.time += vehicle.deliver();                 // adds time it takes to deliver
             this.price += 0.5;                              // adds to price for delivering
         }
