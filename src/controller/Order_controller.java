@@ -91,7 +91,7 @@ public class Order_controller {
     @FXML
     private RadioButton topping_sausage;
 
-    @FXML
+ @FXML
     private TextArea text_summary;
 
     @FXML
@@ -114,6 +114,87 @@ public class Order_controller {
 
     public Order order;                                         // model
     public final ArrayList<Pizza> pizzas = new ArrayList<>();   // ArrayList of pizzas is aggregated to order
+
+
+
+    // getters of buttons for PizzaFactory.create_pizza
+    public RadioButton getSize_32() {
+        return size_32;
+    }
+
+    public RadioButton getSize_40() {
+        return size_40;
+    }
+
+    public RadioButton getCrust_normal() {
+        return crust_normal;
+    }
+
+    public RadioButton getCrust_cheese() {
+        return crust_cheese;
+    }
+
+    public RadioButton getCrust_garlic() {
+        return crust_garlic;
+    }
+
+    public RadioButton getBase_tomato() {
+        return base_tomato;
+    }
+
+    public RadioButton getBase_cream() {
+        return base_cream;
+    }
+
+    public RadioButton getBase_habanero() {
+        return base_habanero;
+    }
+
+    public RadioButton getTopping_bacon() {
+        return topping_bacon;
+    }
+
+    public RadioButton getTopping_corn() {
+        return topping_corn;
+    }
+
+    public RadioButton getTopping_ham() {
+        return topping_ham;
+    }
+
+    public RadioButton getTopping_jalapenos() {
+        return topping_jalapenos;
+    }
+
+    public RadioButton getTopping_mozzarela() {
+        return topping_mozzarela;
+    }
+
+    public RadioButton getTopping_mushroom() {
+        return topping_mushroom;
+    }
+
+    public RadioButton getTopping_olives() {
+        return topping_olives;
+    }
+
+    public RadioButton getTopping_onions() {
+        return topping_onions;
+    }
+
+    public RadioButton getTopping_pepperoni() {
+        return topping_pepperoni;
+    }
+
+    public RadioButton getTopping_sausage() {
+        return topping_sausage;
+    }
+
+    public TextArea getText_summary() {
+        return text_summary;
+    }
+
+
 
 
     public void initialize(){
@@ -147,47 +228,13 @@ public class Order_controller {
     @FXML
     void order_action(ActionEvent event) {
 
-        // handling size
-        int size;
-        if (size_32.isSelected()){size = 32;}
-        else if (size_40.isSelected()){size = 40;}
-        else {text_summary.appendText("Please select size!\n"); return;}
+        // creating pizza object through factory
+        Pizza pizza = (new PizzaFactory()).create_pizza(this);
 
-        // handling base
-        Base base;
-        if (base_tomato.isSelected()){base = new Tomato(size);}
-        else if (base_cream.isSelected()){base = new Cream(size);}
-        else if (base_habanero.isSelected()) {base = new Habanero(size);}
-        else {text_summary.appendText("Please select base!\n"); return;}
-
-        // handling crust
-        Crust crust;
-        if (crust_normal.isSelected()){crust = new Crust(size);}
-        else if (crust_cheese.isSelected()){crust = new Cheese(size);}
-        else if (crust_garlic.isSelected()){crust = new Garlic(size);}
-        else {text_summary.appendText("Please select crust!\n"); return;}
-
-        // handling toppings
-        ArrayList<Topping> toppings = new ArrayList<>(size);
-        if (topping_bacon.isSelected()){toppings.add(new Bacon(size));}
-        if (topping_corn.isSelected()){toppings.add(new Corn(size));}
-        if (topping_jalapenos.isSelected()){toppings.add(new Jalapenos(size));}
-        if (topping_mozzarela.isSelected()){toppings.add(new Mozzarela(size));}
-        if (topping_mushroom.isSelected()){toppings.add(new Mushroom(size));}
-        if (topping_olives.isSelected()){toppings.add(new Olives(size));}
-        if (topping_onions.isSelected()){toppings.add(new Onion(size));}
-        if (topping_pepperoni.isSelected()){toppings.add(new Pepperoni(size));}
-        if (topping_sausage.isSelected()){toppings.add(new Sausage(size));}
-        if (topping_ham.isSelected()){toppings.add(new Ham(size));}
-        // setting price of toppings based of size
-        for (Topping topping: toppings){
-            topping.set_price();
+        // if pizza object wa not created end method
+        if (pizza == null){
+            return;
         }
-
-        // constructing pizza and adding it into the order
-        base.set_price();
-        crust.set_price();
-        Pizza pizza = new Pizza(size, base, crust, toppings);
         pizzas.add(pizza);
 
         text_summary.appendText(pizza_info(pizza));
