@@ -8,7 +8,7 @@ import order.Order;
 public abstract class Chef {
 
     private int cook_time_prepare;                          // time it takes to prepare 1 pizza in minutes
-    public final int cook_time;                           // time it takes to cook 1 pizza in minutes
+    private final int cook_time;                           // time it takes to cook 1 pizza in minutes
     private final int oven_limit;                          // how may pizzas can be cooked at the same time
     private String name;
     private final Inventory inventory;
@@ -19,6 +19,10 @@ public abstract class Chef {
         this.oven_limit = 5;
         this.inventory = Inventory.getInstance();
         this.order_db = Order_db.getInstance();
+    }
+
+    public int getCook_time() {
+        return cook_time;
     }
 
     public String getName() {

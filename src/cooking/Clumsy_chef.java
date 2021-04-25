@@ -51,7 +51,7 @@ public class Clumsy_chef extends Chef{
 
         // calculating time it takes to cook pizzas - number of pizzas divided by oven limit rounded up and
         // multiplied by the time it takes to cook the pizza
-        time += ((int)Math.ceil((double) order.getPizzas().size() / (double) getOven_limit())) * this.cook_time;
+        time += ((int)Math.ceil((double) order.getPizzas().size() / (double) getOven_limit())) * this.getCook_time();
 
         order.add_time(time);
     }
