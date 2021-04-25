@@ -1,7 +1,6 @@
 package controller;
 
 import databases.Inventory;
-import databases.Order_db;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,9 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import toppings.*;
-import crusts.*;
-import bases.*;
 import order.*;
 
 import java.io.IOException;

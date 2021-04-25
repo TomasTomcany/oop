@@ -51,7 +51,7 @@ public abstract class Chef {
         int time = 0;
         // chef has to make all the other orders in the queue in order to get to this order
         for (Order item: order_db.getOrders()){
-            if (item.getChef_name().equals(this.name)){
+            if (item.getChef_name().equals(this.name) && !item.isIs_done()){
                 item.do_order(true, true);
 
                 // calculating time it took to make the order for chef
