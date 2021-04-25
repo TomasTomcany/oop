@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
+import view.Inventory_view;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -43,8 +44,10 @@ public class Login_controller {
                 node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Order_view.fxml")));
                 break;
             case "Inventory":
-                node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Inventory_view.fxml")));
-                break;
+                Inventory_view inventoryview = new Inventory_view();
+                Inventory_controller cont = new Inventory_controller(inventoryview);
+                stage.setScene(inventoryview.getScene());
+                return;
             case "CurrentOrders":
                 node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/Order_db_view.fxml")));
                 break;
