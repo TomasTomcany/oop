@@ -41,7 +41,7 @@ public class Pizza {
 
     public int get_size(){return size;}
 
-    public void expend_ingredients() throws Exception {
+    public void expend_ingredients() {
         // expending all of the ingredients of pizza from inventory
         Inventory inventory = Inventory.getInstance();
 
