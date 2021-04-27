@@ -141,42 +141,51 @@ public class Inventory implements Serializable {
 
 
     // own exception for checking if there is enough on the inventory before making pizza
-    static void check_if_enough(int num)throws NotInInventoryException{
+    static void check_if_enough(int num, String s)throws NotInInventoryException{
         if (num < 1){
-            throw new NotInInventoryException(num + " is not on the inventory!\n");
+            throw new NotInInventoryException(s + " is not on the inventory!\n");
         }
     }
 
-    public void expend_base(Base base) throws NotInInventoryException {
+    public void expend_base(Base base) {
         // expending specific base in database
         for (Base item: bases){
             if (item.get_name().equals(base.get_name())){
                 // if there is not enough of the item on the inventory, pizza cant be made of it
-                check_if_enough(item.getInventory_num());
+                try {
+                    check_if_enough(item.getInventory_num(), item.get_name());
+                }catch(Exception m){
+                    System.out.println("NotInInventoryException occurred: ");}
 
                 item.lower_Inventory_num();
             }
         }
     }
 
-    public void expend_crust(Crust crust) throws NotInInventoryException {
+    public void expend_crust(Crust crust) {
         // expending specific base in database
         for (Crust item: crusts){
             if (item.get_name().equals(crust.get_name())){
                 // if there is not enough of the item on the inventory, pizza cant be made of it
-                check_if_enough(item.getInventory_num());
+                try{
+                check_if_enough(item.getInventory_num(), item.get_name());
+                }catch(Exception m){
+                    System.out.println("NotInInventoryException occurred: ");}
 
                 item.lower_Inventory_num();
             }
         }
     }
 
-    public void expend_toppings(Topping topping) throws NotInInventoryException {
+    public void expend_toppings(Topping topping) {
         // expending specific base in database
         for (Topping item: toppings){
             if (item.get_name().equals(topping.get_name())){
                 // if there is not enough of the item on the inventory, pizza cant be made of it
-                check_if_enough(item.getInventory_num());
+                try{
+                check_if_enough(item.getInventory_num(), item.get_name());
+                }catch(Exception m){
+                    System.out.println("NotInInventoryException occurred: ");}
 
                 item.lower_Inventory_num();
             }

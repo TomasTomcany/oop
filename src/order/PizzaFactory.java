@@ -116,10 +116,9 @@ public class PizzaFactory {
         if (oc.getTopping_pepperoni().isSelected()){toppings.add(new Pepperoni(size));}
         if (oc.getTopping_sausage().isSelected()){toppings.add(new Sausage(size));}
         if (oc.getTopping_ham().isSelected()){toppings.add(new Ham(size));}
-        // setting price of toppings based of size
-        for (Topping topping: toppings){
-            topping.set_price();
-        }
+        // setting price of toppings based of size through method reference
+        toppings.forEach(Topping::set_price);
+
 
         // constructing pizza and adding it into the order
         base.set_price();

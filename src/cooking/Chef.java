@@ -15,7 +15,7 @@ public abstract class Chef {
     private final Order_db order_db;
 
     Chef (){
-        this.cook_time = 15;
+        this.cook_time = 10;
         this.oven_limit = 5;
         this.inventory = Inventory.getInstance();
         this.order_db = Order_db.getInstance();

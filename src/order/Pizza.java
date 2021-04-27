@@ -33,9 +33,7 @@ public class Pizza {
         this.toppings = t;
         // setting price based of its composition
         this.price += base.get_price()+crust.get_price();
-        for (Topping item: toppings){
-            this.price += item.get_price();
-        }
+        toppings.forEach(x -> this.price += x.get_price());
     }
 
 
